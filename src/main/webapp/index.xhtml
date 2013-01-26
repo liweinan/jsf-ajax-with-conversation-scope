@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+        <h:outputScript library="javax.faces" name="jsf.js"/>
+
+        <h:form id='fruit_form'>
+            <h:inputHidden id="cid_col" value="#{fruitRepo.cid}"/>
+
+            <h2>FRUIT-REPOSITORY</h2>
+
+            <table>
+                <tr>
+                    <td>Add a new fruit:</td>
+                    <td>
+                        <h:inputText id="fruit_col" value="#{fruitRepo.fruit}"/>
+                    </td>
+                    <td>
+                        <h:commandButton id="submit_btn" action="#{fruitRepo.add}" value="Add It!"
+                                         onclick="injectCid(this, event, document.getElementById('fruit_form:cid_col').value);return false;"/>
+                        <h:commandButton id="clear_btn" action="#{fruitRepo.clear}" value="Clear All"
+                                         style="display:none;"
+                                         onclick="injectCid(this, event, document.getElementById('fruit_form:cid_col').value);document.getElementById('fruit_form:clear_btn').style.display = 'none';return false;"/>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+
+        <h:dataTable id="fruits_tbl" value="#{fruitRepo.fruits}" var="fruit">
+            <h:column>
+                #{fruit}
+            </h:column>
+        </h:dataTable>
+
+        <script type="text/javascript">
+            function injectCid(form, event, cid) {
+                if (cid) {
+                    mojarra.ab(form, event, 'action', '@form', 'fruit_form:cid_col fruit_form:fruit_col fruits_tbl', {'cid': cid});
+                } else {
+                    mojarra.ab(form, event, 'action', '@form', 'fruit_form:cid_col fruit_form:fruit_col fruits_tbl');
+                }
+                document.getElementById('fruit_form:clear_btn').style.display = 'inline';
+            }
+        </script>
+    </ui:define>
+</ui:composition>

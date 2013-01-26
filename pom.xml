@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.jboss</groupId>
+    <artifactId>jsf-ajax-with-conversation-scope</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>JSF2 Ajax + Weld Conversation Scope</name>
+    <description>
+		Demonstration on how to make JSF2 Ajax and Weld conversation scope working together on JBoss AS7
+    </description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jboss-javaee6-spec.version>1.0.0.Final</jboss-javaee6-spec.version>
+    </properties>
+
+    <repositories>
+        <!-- The JBoss Community public repository is a composite repository of several major repositories -->
+        <!-- see http://community.jboss.org/wiki/MavenGettingStarted-Users -->
+        <!-- At the time of writing, Arquillian and the JBoss Java EE specification POMs are only in the JBoss Community public 
+            repository (not Maven central) -->
+        <repository>
+            <id>jboss-public-repository</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public</url>
+            <!-- These optional flags are designed to speed up your builds by reducing remote server calls -->
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jboss-public-repository</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public</url>
+            <!-- These optional flags are designed to speed up your builds by reducing remote server calls -->
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <!-- Set to true to fix error in which Maven cannot find org.apache.maven.plugins:maven-archetype-plugin:maven-plugin:2.0-alpha-6-SNAPSHOT -->
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>1.0-SP4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>2.1.16-jbossorg-1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <version>2.1.8</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <!-- Compiler plugin enforces Java 1.6 compatibility and activates annotation processors -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.1</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
