@@ -37,9 +37,18 @@
         <script type="text/javascript">
             function injectCid(form, event, cid) {
                 if (cid) {
-                    mojarra.ab(form, event, 'action', '@form', 'fruit_form:cid_col fruit_form:fruit_col fruits_tbl', {'cid': cid});
+                    jsf.ajax.request(form, event,
+                            {
+                                render: 'fruit_form:cid_col fruit_form:fruit_col fruits_tbl',
+                                execute: "@form",
+                                "cid": cid
+                            });
                 } else {
-                    mojarra.ab(form, event, 'action', '@form', 'fruit_form:cid_col fruit_form:fruit_col fruits_tbl');
+                    jsf.ajax.request(form, event,
+                            {
+                                render: 'fruit_form:cid_col fruit_form:fruit_col fruits_tbl',
+                                execute: "@form"
+                            });
                 }
                 document.getElementById('fruit_form:clear_btn').style.display = 'inline';
             }
