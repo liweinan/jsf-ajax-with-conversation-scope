@@ -52,28 +52,19 @@ public class FruitController implements Serializable {
 
     boolean conversationStarted = false;
 
-    public synchronized void add() {
-        System.out.println("CONVERSATION-STARTED: " + conversationStarted);
-        if (!conversationStarted) {
-            conversation.begin();
-            conversationStarted = true;
-            cid = conversation.getId();
-            System.out.println("CONVERSATION-ID: " + cid);
-        }
-
-        fruits.add(fruit);
-        fruit = null;
+    public void add() {
+        conversation.begin();
+        cid = conversation.getId();
     }
 
     public void clear() {
-        synchronized (this) {
-            if (conversationStarted) {
-                conversationStarted = false;
-                conversation.end();
-                cid = null;
-                fruits = new ArrayList<String>();
-                System.out.println("CONVERSATION-END");
-            }
+        if (conversationStarted) {
+            conversationStarted = false;
+            conversation.end();
+            cid = null;
+            fruits = new ArrayList<String>();
         }
+
     }
+
 }
